@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import argparse
+import dtail
+
+parser = argparse.ArgumentParser()
+parser.add_argument('file_glob', help='glob of files to tail')
+parser.add_argument('color_regex', nargs='*', help='alternate between color and pattern to highlight')
+args = parser.parse_args()
+
+assert len(args.color_regex) % 2 == 0
+color_regexes = list(zip(args.color_regex[::2], args.color_regex[1::2]))
+dtail.main(args.file_glob, color_regexes)
